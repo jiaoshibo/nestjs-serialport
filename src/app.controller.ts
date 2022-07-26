@@ -27,6 +27,6 @@ export class AppController {
   }
   @Get('readPort')
   async readPort(){
-    return await this.appService.readData()
+    return this.appService.readData();
   }
 }
