@@ -15,7 +15,12 @@ export class AppController {
   }
   @Get('openPort/:path')
   async connectPort(@Param('path') path:string){
-    return await this.appService.connectPort(path)
+    try{
+      return await this.appService.connectPort(path)
+    }catch(e){
+      console.log(e,'------connectPort-----');
+      return e.msg.message;
+    }
   }
   @Get('closePort')
   closePort(){

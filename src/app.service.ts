@@ -14,24 +14,20 @@ export class AppService {
   }
 
   connectPort(path:string){
-    let responseData:{
-      status:boolean;
-      code:number
-    } = {
-      status:false,
-      code:200
-    }
     return new Promise((resolve, reject) => {
       this.port = new SerialPort({path: path, baudRate: 9600}, (err) => {
         if (err) {
-          console.log(`${path} 打开失败`);
-          responseData.code = 2001;
-          responseData.status = false;
-          reject(responseData)
+          console.log(`${path} 打开失败`,`------${new Date()}`);
+          console.log(`${err}:--------${new Date()}`);
+          reject({
+            msg:err
+          })
+        }else{
+          console.log(`${path}打开成功`,`-------${new Date()}`);
+          resolve({
+            msg:`${path} 连接成功`
+          })
         }
-        responseData.code = 200;
-        responseData.status = true;
-        resolve(responseData)
       })
     })
   }
