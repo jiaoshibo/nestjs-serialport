@@ -37,8 +37,14 @@ export class AppService {
   }
 
   closePort(){
-    this.port.close();
-    return true
+    try {
+      this.port.close();
+      return '串口关闭'
+    }catch (e) {
+      console.log(e);
+      throw e
+    }
+
   }
 
   writeData(data:Array<number>){
