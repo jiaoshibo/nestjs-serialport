@@ -8,11 +8,16 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
-
+  /**
+   * 获取串口列表
+   */
   async getPortList(){
     return await SerialPort.list()
   }
-
+  /**
+   * 连接指定串口
+   * @param path 串口号或者串口路径
+   */
   connectPort(path:string){
     return new Promise((resolve, reject) => {
       this.port = new SerialPort({path: path, baudRate: 9600}, (err) => {
@@ -31,7 +36,9 @@ export class AppService {
       })
     })
   }
-
+  /**
+   * 关闭串口
+   */
   closePort(){
     try {
       this.port.close();
@@ -42,7 +49,10 @@ export class AppService {
     }
 
   }
-
+  /**
+   * 串口写入
+   * @param data 
+   */
   writeData(data:Array<number>){
     let uint8Array = new Uint8Array(data)
     return new Promise((resolve,reject)=>{
@@ -62,7 +72,9 @@ export class AppService {
       })
     })
   }
-
+  /**
+   * 读取串口
+   */
   readData(){
     return {
       data:this.port.read(),
